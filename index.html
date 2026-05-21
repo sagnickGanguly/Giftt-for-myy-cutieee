@@ -3,367 +3,400 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinity & Beyond | For Krinuuu</title>
+    <title>The Universe of Us | For Krinuuu</title>
     <style>
         /* --- CORE STYLES & VARIABLES --- */
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@200;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@100;300;500&display=swap');
 
         :root {
-            --bg-deep: #050505;
-            --text-main: #ffffff;
-            --accent-1: #ff3f81; /* Neon Pink */
-            --accent-2: #00e676; /* Neon Green */
-            --accent-3: #2979ff; /* Electric Blue */
-            --accent-4: #ffea00; /* Vivid Yellow */
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Poppins', sans-serif;
-            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+            --bg-deep: #030305;
+            --text-main: #e2e2e2;
+            --accent-1: #ff2a5f; /* Deep Crimson/Pink */
+            --accent-2: #00f0ff; /* Cyan */
+            --accent-3: #9d4edd; /* Royal Purple */
+            --accent-4: #ffaa00; /* Gold */
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --ease: cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
         
         body {
-            font-family: var(--font-sans);
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            overflow-x: hidden;
+            font-family: var(--font-sans); background-color: var(--bg-deep);
+            color: var(--text-main); overflow-x: hidden; cursor: none;
             -webkit-font-smoothing: antialiased;
-            cursor: none; /* Hide default cursor for custom one */
         }
 
         /* --- CUSTOM CURSOR --- */
-        #cursor {
-            width: 10px; height: 10px; background: #fff; border-radius: 50%;
-            position: fixed; pointer-events: none; z-index: 10000;
-            transform: translate(-50%, -50%); transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+        #cursor, #cursor-follower {
+            position: fixed; top: 0; left: 0; pointer-events: none;
+            border-radius: 50%; transform: translate(-50%, -50%); z-index: 9999;
         }
+        #cursor { width: 6px; height: 6px; background: #fff; transition: width 0.2s, height 0.2s; }
         #cursor-follower {
-            width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%;
-            position: fixed; pointer-events: none; z-index: 9999;
-            transform: translate(-50%, -50%); transition: transform 0.15s var(--ease-out-expo), border 0.3s;
+            width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.4);
+            transition: transform 0.1s var(--ease), width 0.3s, height 0.3s, background 0.3s;
         }
-        body.hovering #cursor { width: 50px; height: 50px; background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); }
-        body.hovering #cursor-follower { border-color: var(--accent-1); }
+        body.hovering #cursor { width: 0; height: 0; }
+        body.hovering #cursor-follower {
+            width: 80px; height: 80px; background: rgba(255, 42, 95, 0.1);
+            border-color: var(--accent-1); backdrop-filter: blur(4px);
+        }
 
-        /* --- LAYOUT & SCROLLING --- */
+        /* --- LAYOUT --- */
         main { position: relative; width: 100%; }
-        
         .section {
             min-height: 100vh; width: 100%; position: relative;
-            display: flex; justify-content: center; align-items: center;
-            overflow: hidden; padding: 10vw;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 10vw; overflow: hidden;
         }
 
-        /* --- GLOBAL ANIMATION CLASSES --- */
-        .reveal { opacity: 0; transform: translateY(100px) skewY(5deg); transition: all 1.5s var(--ease-out-expo); }
-        .reveal.active { opacity: 1; transform: translateY(0) skewY(0deg); }
+        /* --- GLOBAL ANIMATIONS --- */
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 1.5s var(--ease); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
         
-        .split-text span { display: inline-block; transform: translateY(110%); transition: transform 1s var(--ease-out-expo); }
-        .reveal.active .split-text span { transform: translateY(0); }
-
-        /* --- SECTION 1: THE ENTRY (The Void) --- */
-        #entry { background: #000; z-index: 10; }
-        .central-love { text-align: center; }
-        .central-love h1 {
-            font-family: var(--font-serif); font-size: calc(4rem + 4vw); font-weight: 700;
-            line-height: 0.9; text-transform: uppercase; letter-spacing: -2px;
-            background: linear-gradient(180deg, #fff 30%, var(--accent-1));
+        /* --- SEC 1: THE AWAKENING --- */
+        #hero { background: radial-gradient(circle at center, #1a0a13 0%, var(--bg-deep) 100%); height: 120vh; }
+        .hero-text { text-align: center; z-index: 2; }
+        .hero-text p { font-size: 1.2rem; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 2rem; opacity: 0.6; }
+        .split-text span {
+            display: inline-block; opacity: 0; transform: translateY(50px) rotateX(-90deg);
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .split-text.active span { opacity: 1; transform: translateY(0) rotateX(0); }
+        .huge-title {
+            font-family: var(--font-serif); font-size: 15vw; font-weight: 600; line-height: 0.8;
+            background: linear-gradient(180deg, #fff 20%, var(--accent-1) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .scroll-prompt {
-            position: absolute; bottom: 5vh; left: 50%; transform: translateX(-50%);
-            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px;
-            opacity: 0.6; animation: pulse 2s infinite;
+        .scroll-down {
+            position: absolute; bottom: 10vh; text-transform: uppercase; font-size: 0.7rem;
+            letter-spacing: 5px; animation: breathe 3s infinite ease-in-out;
         }
 
-        /* --- SECTION 2: THE NEBULA (Cute Quotes) --- */
-        #nebula { background: linear-gradient(135deg, #050505 0%, #1a0a1f 100%); }
-        .glitch-pattern {
-            position: absolute; inset: 0; opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-2v4h2v4h2v-4h2v-4h-2zm0 8.66V46H34v-3.34L33.34 42 34 41.34V38h2v3.34L36.66 42 36 42.66zM33.34 32L32 33.34 30.66 32 32 30.66 33.34 32zM32 46.66L30.66 48 29.34 46.66 30.66 45.34 32 46.66zM32 38.66L30.66 40 29.34 38.66 30.66 37.34 32 38.66zM32 29.34L30.66 32 29.34 29.34 30.66 26.66 32 29.34z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        /* --- SEC 2: THE REVELATION (Deep Text) --- */
+        #revelation { background: #000; padding: 20vh 10vw; }
+        .deep-paragraph {
+            font-family: var(--font-serif); font-size: 4vw; line-height: 1.4; max-width: 1200px;
+            color: rgba(255,255,255,0.15); /* Dim by default */
         }
-        .quote-card {
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
-            padding: 5rem; border-radius: 20px; max-width: 800px;
-            backdrop-filter: blur(10px); transform: rotateX(10deg) rotateY(-10deg);
-            transition: transform 0.5s var(--ease-out-expo);
+        .deep-paragraph span {
+            transition: color 0.5s ease, text-shadow 0.5s ease;
         }
-        .quote-card:hover { transform: rotateX(0deg) rotateY(0deg) scale(1.02); border-color: var(--accent-2); }
-        .quote-card h2 { font-family: var(--font-serif); font-style: italic; font-size: 2.5rem; color: var(--accent-2); margin-bottom: 2rem; }
-        .quote-card p { font-weight: 200; font-size: 1.2rem; line-height: 1.8; opacity: 0.8; }
+        .deep-paragraph span.highlight {
+            color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
 
-        /* --- SECTION 3: THE DEEP VOID (Confessions) --- */
-        #void { background: #000; display: block; padding: 0; }
-        .confession-strip {
-            height: 100vh; width: 100%; display: flex; align-items: center;
-            white-space: nowrap; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.1);
+        /* --- SEC 3: THE PARALLAX CARDS --- */
+        #cards { background: linear-gradient(to bottom, #000, #0a0a1a); }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; width: 100%; max-width: 1200px; }
+        .glass-card {
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            padding: 4rem 3rem; border-radius: 20px; backdrop-filter: blur(10px);
+            transform-style: preserve-3d; transition: border 0.3s;
         }
-        .confession-strip h3 {
-            font-size: 15vh; font-family: var(--font-serif); text-transform: uppercase;
-            font-weight: 700; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.2);
-            animation: marquee 20s linear infinite;
-        }
-        .confession-strip:nth-child(even) h3 { animation-direction: reverse; color: rgba(255,255,255,0.05); -webkit-text-stroke: 0; }
-        .confession-strip h3 span { color: var(--accent-3); -webkit-text-stroke: 0; }
+        .glass-card:hover { border-color: var(--accent-3); box-shadow: 0 20px 50px rgba(157, 78, 221, 0.1); }
+        .glass-card h3 { font-family: var(--font-serif); font-size: 2.5rem; font-style: italic; color: var(--accent-3); margin-bottom: 1.5rem; transform: translateZ(50px); }
+        .glass-card p { font-size: 1.1rem; line-height: 1.8; font-weight: 300; opacity: 0.8; transform: translateZ(30px); }
 
-        /* --- SECTION 4: THE HARMONY (Shayaris) --- */
-        #harmony { background: linear-gradient(180deg, #000000 0%, #051937 100%); }
-        .shayari-container {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 4rem; width: 100%; max-width: 1200px;
+        /* --- SEC 4: THE INFINITE GRID (Magnetic Text) --- */
+        #grid-section { position: relative; background: #000; overflow: hidden; perspective: 1000px; height: 120vh; }
+        .css-grid {
+            position: absolute; top: 0; left: -50%; width: 200%; height: 200%;
+            background-image: linear-gradient(rgba(0, 240, 255, 0.1) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 240, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: rotateX(60deg) translateY(-100px);
+            animation: gridMove 20s linear infinite; z-index: 0;
         }
-        .shayari-box {
-            position: relative; padding: 3rem; background: rgba(0,0,0,0.5); border-left: 3px solid var(--accent-4);
-            transform: translateX(-100px); opacity: 0; transition: all 1s var(--ease-out-expo);
+        .magnetic-wrap { position: relative; z-index: 2; text-align: center; }
+        .magnetic-text {
+            display: inline-block; font-family: var(--font-serif); font-size: 7vw;
+            color: #fff; text-transform: uppercase; transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        .reveal.active .shayari-box { transform: translateX(0); opacity: 1; }
-        .reveal.active .shayari-box:nth-child(2) { transition-delay: 0.3s; }
-        
-        .shayari-box p {
-            font-family: var(--font-serif); font-size: 1.8rem; line-height: 1.6;
-            color: #fff; text-shadow: 0 0 10px rgba(255,234,0,0.3);
-        }
-        .shayari-box span { display: block; margin-top: 2rem; font-size: 0.9rem; text-transform: uppercase; color: var(--accent-4); letter-spacing: 3px; }
+        .magnetic-sub { font-size: 1.5rem; letter-spacing: 8px; color: var(--accent-2); margin-top: 1rem; }
 
-        /* --- SECTION 5: THE SUPERNOVA (Finale) --- */
-        #supernova { background: #000; }
-        .climax-text { text-align: center; position: relative; z-index: 2; }
-        .climax-text h1 {
-            font-size: 12vw; font-family: var(--font-serif); font-weight: 700;
-            line-height: 0.8; text-transform: uppercase; letter-spacing: -5px;
-            animation: colorCycle 10s infinite;
+        /* --- SEC 5: THE CONFESSION MARQUEE --- */
+        #marquee-sec { background: var(--bg-deep); padding: 5vh 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .marquee-container { width: 100%; overflow: hidden; white-space: nowrap; display: flex; flex-direction: column; gap: 2rem; }
+        .marquee-track { display: flex; width: max-content; animation: scrollLeft 30s linear infinite; }
+        .marquee-track.reverse { animation: scrollRight 35s linear infinite; }
+        .marquee-track h2 {
+            font-family: var(--font-serif); font-size: 8vw; font-weight: 300; text-transform: uppercase;
+            padding-right: 5vw; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.3);
         }
-        .final-sign { margin-top: 5rem; font-size: 1.5rem; font-weight: 200; opacity: 0.7; }
-        .final-sign b { font-family: var(--font-serif); font-style: italic; color: var(--accent-1); font-size: 2rem; }
+        .marquee-track h2 span { color: var(--accent-1); -webkit-text-stroke: 0; font-style: italic; }
 
-        /* Background Particle Canvas */
-        #particle-canvas { position: absolute; inset: 0; z-index: 1; opacity: 0.5; }
+        /* --- SEC 6: THE SHAYARI (Harmony) --- */
+        #shayari { background: radial-gradient(circle at bottom, #1a1a00 0%, var(--bg-deep) 100%); }
+        .shayari-box { text-align: center; max-width: 800px; margin-bottom: 5rem; }
+        .shayari-box p { font-family: var(--font-serif); font-size: 2.5rem; line-height: 1.5; color: #fff; text-shadow: 0 0 15px rgba(255, 170, 0, 0.3); }
+        .shayari-box .author { margin-top: 2rem; font-size: 1rem; letter-spacing: 4px; color: var(--accent-4); text-transform: uppercase; }
+
+        /* --- SEC 7: THE SUPERNOVA (Finale) --- */
+        #finale { background: #000; text-align: center; position: relative; height: 120vh;}
+        canvas#particles { position: absolute; inset: 0; z-index: 1; opacity: 0.8; pointer-events: none; }
+        .finale-content { z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
+        .finale-title { font-family: var(--font-serif); font-size: 18vw; font-weight: 600; line-height: 0.8; letter-spacing: -5px; }
+        .finale-sub { font-size: 1.5rem; font-weight: 100; letter-spacing: 2px; margin-top: 2rem; opacity: 0.8; line-height: 1.8; }
+        .sign-off { margin-top: 4rem; font-family: var(--font-serif); font-size: 4rem; font-style: italic; color: var(--accent-1); }
 
         /* --- KEYFRAMES --- */
-        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        @keyframes colorCycle {
-            0%, 100% { color: var(--accent-1); text-shadow: 0 0 20px var(--accent-1); }
-            33% { color: var(--accent-2); text-shadow: 0 0 20px var(--accent-2); }
-            66% { color: var(--accent-3); text-shadow: 0 0 20px var(--accent-3); }
-        }
+        @keyframes breathe { 0%, 100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 0.8; transform: translateY(10px); } }
+        @keyframes gridMove { 0% { background-position: 0 0; } 100% { background-position: 0 50px; } }
+        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
-        /* --- RESPONSIVE FIXES --- */
+        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            .quote-card { padding: 2rem; }
-            .quote-card h2 { font-size: 1.8rem; }
-            .shayari-container { grid-template-columns: 1fr; }
-            .confession-strip h3 { font-size: 8vh; }
+            .huge-title { font-size: 20vw; }
+            .deep-paragraph { font-size: 6vw; }
+            .glass-card { padding: 3rem 2rem; }
+            .glass-card h3 { font-size: 2rem; }
+            .shayari-box p { font-size: 1.8rem; }
+            .finale-title { font-size: 20vw; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Custom Cursors -->
     <div id="cursor"></div>
     <div id="cursor-follower"></div>
 
     <main>
-        <section id="entry" class="section">
-            <div class="central-love reveal">
-                <p class="intro-text" style="text-transform:uppercase; letter-spacing:5px; size:0.8rem; margin-bottom:1rem; opacity:0.5;">A Digital Universe For</p>
-                <h1 class="split-text">Betuu</h1>
+        <!-- 1. HERO -->
+        <section id="hero" class="section">
+            <div class="hero-text">
+                <p class="reveal">I used to think time was just a measurement...</p>
+                <h1 class="huge-title split-text hover-target">BETUU</h1>
+                <p class="reveal" style="margin-top: 2rem; font-style: italic; text-transform: none; font-family: var(--font-serif); font-size: 2rem;">Until I met you, and time became a feeling.</p>
             </div>
-            <div class="scroll-prompt">Scroll into the infinite</div>
+            <div class="scroll-down">Descend into my mind</div>
         </section>
 
-        <section id="nebula" class="section">
-            <div class="glitch-pattern"></div>
-            <div class="quote-card reveal tilt">
-                <h2>For My Babyy...</h2>
-                <p>"You are the finest, loveliest, tenderest, and most beautiful person I have ever known—and even that is an understatement. If I had a flower for every time I thought of you, I could walk through my garden forever."</p>
-                <p style="margin-top:1rem;">"In a room full of art, I'd still stare at you. Because you aren't just a chapter in my life, Krinuuu, you are the whole book."</p>
-            </div>
+        <!-- 2. SCROLL-TRIGGERED DEEP TEXT -->
+        <section id="revelation" class="section">
+            <p class="deep-paragraph hover-target" id="scroll-text">
+                People talk about finding their other half. But I didn't find my other half in you, Babyy. I found a mirror that showed me a universe I never knew I deserved to live in. I didn't just fall in love with you... I stepped into love with you. With my eyes wide open, choosing you in every dimension, in every timeline, in every breath.
+            </p>
         </section>
 
-        <section id="void" class="section">
-            <div class="confession-strip">
-                <h3>I Love You More Than Words Can Say <span>///</span> Krinuuu <span>///</span> I Love You More Than Words Can Say <span>///</span> Krinuuu <span>///</span></h3>
-            </div>
-            <div class="confession-strip">
-                <h3>You Are My Peace In Chaotic Worlds <span>***</span> Meri Smurff <span>***</span> You Are My Peace In Chaotic Worlds <span>***</span> Meri Smurff <span>***</span></h3>
-            </div>
-            <div class="confession-strip">
-                <h3>Every Heartbeat Belongs To You <span>///</span> Krinuuu <span>///</span> Every Heartbeat Belongs To You <span>///</span> Krinuuu <span>///</span></h3>
-            </div>
-        </section>
-
-        <section id="harmony" class="section">
-            <div class="reveal">
-                <h2 style="text-align:center; font-family:var(--font-serif); font-size:3rem; margin-bottom:5rem;">Dil Ki Kitaab Se</h2>
-                <div class="shayari-container">
-                    <div class="shayari-box">
-                        <p>"Tere khayal se nikal kar dekhu toh duniya haseen lagti hai,<br>Magar jab tujhe sochu toh duniya ki har khushi feeki lagti hai."</p>
-                        <span>- For You</span>
-                    </div>
-                    <div class="shayari-box">
-                        <p>"Tu woh lamha hai jise main har pal jeena chahta hoon,<br>Tu woh dua hai jise main har roz maangna chahta hoon."</p>
-                        <span>- Always</span>
-                    </div>
+        <!-- 3. PARALLAX CARDS -->
+        <section id="cards" class="section">
+            <div class="card-grid">
+                <div class="glass-card tilt-card hover-target">
+                    <h3>My Peace</h3>
+                    <p>They say soulmates are found... I think they are recognized. The moment I saw you, my soul exhaled. It simply said: "There you are. I've been looking all over for you."</p>
+                </div>
+                <div class="glass-card tilt-card hover-target">
+                    <h3>My Chaos</h3>
+                    <p>I love the way your mind works. The quiet moments where we don't have to speak. The loud laughs. The way you make the most ordinary Tuesday feel like a cinematic masterpiece.</p>
                 </div>
             </div>
         </section>
 
-        <section id="supernova" class="section">
-            <canvas id="particle-canvas"></canvas>
-            <div class="climax-text reveal">
-                <p style="text-transform:uppercase; letter-spacing:10px; margin-bottom:2rem; opacity:0.6;">Forever & Always</p>
-                <h1>Krinuuu</h1>
-                <p class="final-sign">This effort is just a glimpse of how much you mean to me.<br>Yours, <b>Nick</b></p>
+        <!-- 4. INFINITE GRID & MAGNETIC TEXT -->
+        <section id="grid-section" class="section">
+            <div class="css-grid"></div>
+            <div class="magnetic-wrap reveal hover-target">
+                <h2 class="magnetic-text">My Smurff</h2>
+                <p class="magnetic-sub">You are the gravity holding my universe together.</p>
+            </div>
+        </section>
+
+        <!-- 5. MARQUEE CONFESSIONS -->
+        <section id="marquee-sec">
+            <div class="marquee-container hover-target">
+                <div class="marquee-track">
+                    <h2>You Are The Poetry I Cannot Breathe Without <span>///</span> Krinuuu <span>///</span> You Are The Poetry I Cannot Breathe Without <span>///</span> Krinuuu <span>///</span></h2>
+                </div>
+                <div class="marquee-track reverse">
+                    <h2>In A Lifetime Of Choices My Soul Always Chooses Yours <span>***</span> Betuu <span>***</span> In A Lifetime Of Choices My Soul Always Chooses Yours <span>***</span> Betuu <span>***</span></h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. SHAYARI -->
+        <section id="shayari" class="section">
+            <div class="shayari-box reveal hover-target">
+                <p>"Meri dhadkano mein bas tera hi shor hai,<br>Tu nahi toh yeh zindagi jaise bilkul be-jaan hai."</p>
+                <div class="author">Dil Se</div>
+            </div>
+            <div class="shayari-box reveal hover-target" style="transition-delay: 0.2s;">
+                <p>"Tujhse milna shayad ek ittefaq tha,<br>Par tujhe ta-umar chahna meri rooh ka faisla hai."</p>
+                <div class="author">Hamesha</div>
+            </div>
+        </section>
+
+        <!-- 7. FINALE -->
+        <section id="finale" class="section">
+            <canvas id="particles"></canvas>
+            <div class="finale-content reveal hover-target">
+                <p style="text-transform: uppercase; letter-spacing: 10px; color: var(--accent-1); margin-bottom: 1rem;">My Forever & Always</p>
+                <h1 class="finale-title">KRINUUU</h1>
+                <p class="finale-sub">I built this place so you always have somewhere to go<br>when you need a reminder of how completely, hopelessly,<br>and madly I am in love with you.</p>
+                <div class="sign-off">Yours endlessly,<br>Nick</div>
             </div>
         </section>
     </main>
 
     <script>
-        /* --- 1. CUSTOM CURSOR LOGIC --- */
+        // --- 1. CUSTOM CURSOR LOGIC ---
         const cursor = document.getElementById('cursor');
         const follower = document.getElementById('cursor-follower');
-        const body = document.body;
-
-        let mouseX = 0, mouseY = 0;
-        let followerX = 0, followerY = 0;
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let followerX = mouseX, followerY = mouseY;
 
         document.addEventListener('mousemove', e => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            cursor.style.left = mouseX + 'px';
-            cursor.style.top = mouseY + 'px';
+            mouseX = e.clientX; mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px'; cursor.style.top = mouseY + 'px';
         });
 
-        // Smooth follower animation
-        function animateFollower() {
-            let dX = mouseX - followerX;
-            let dY = mouseY - followerY;
-            followerX += dX * 0.1;
-            followerY += dY * 0.1;
-            follower.style.left = followerX + 'px';
-            follower.style.top = followerY + 'px';
-            requestAnimationFrame(animateFollower);
+        function animateCursor() {
+            followerX += (mouseX - followerX) * 0.15;
+            followerY += (mouseY - followerY) * 0.15;
+            follower.style.left = followerX + 'px'; follower.style.top = followerY + 'px';
+            requestAnimationFrame(animateCursor);
         }
-        animateFollower();
+        animateCursor();
 
-        // Cursor hover states
-        const interactables = document.querySelectorAll('.quote-card, .shayari-box, h1, h3');
-        interactables.forEach(el => {
-            el.addEventListener('mouseenter', () => body.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => body.classList.remove('hovering'));
+        document.querySelectorAll('.hover-target').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
         });
 
-
-        /* --- 2. SCROLL REVEAL (Intersection Observer) --- */
-        const reveals = document.querySelectorAll('.reveal');
-        
-        // Prepare split text
-        const splitTexts = document.querySelectorAll('.split-text');
-        splitTexts.forEach(text => {
-            const content = text.textContent;
-            text.textContent = '';
-            for (let char of content) {
-                const span = document.createElement('span');
-                span.textContent = char === ' ' ? '\u00A0' : char;
-                text.appendChild(span);
-            }
+        // --- 2. HERO TITLE SPLIT ANIMATION ---
+        const hugeTitle = document.querySelector('.huge-title.split-text');
+        const textToSplit = hugeTitle.textContent;
+        hugeTitle.textContent = '';
+        textToSplit.split('').forEach((char, i) => {
+            let span = document.createElement('span');
+            span.textContent = char;
+            span.style.transitionDelay = `${i * 0.1}s`;
+            hugeTitle.appendChild(span);
         });
+        setTimeout(() => hugeTitle.classList.add('active'), 500);
 
-        const observer = new IntersectionObserver(entries => {
+        // --- 3. BASIC SCROLL REVEAL ---
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    // Add staggered delay to split text characters
-                    if (entry.target.querySelector('.split-text')) {
-                        entry.target.querySelectorAll('.split-text span').forEach((span, index) => {
-                            span.style.transitionDelay = `${index * 0.1}s`;
-                        });
-                    }
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- 4. DEEP TEXT WORD-BY-WORD SCROLL HIGHLIGHT ---
+        const deepPara = document.getElementById('scroll-text');
+        const words = deepPara.textContent.trim().split(/\s+/);
+        deepPara.innerHTML = '';
+        words.forEach(word => {
+            let span = document.createElement('span');
+            span.textContent = word + ' ';
+            deepPara.appendChild(span);
+        });
+
+        const wordSpans = deepPara.querySelectorAll('span');
+        window.addEventListener('scroll', () => {
+            // Calculate how far through the #revelation section we have scrolled
+            const sec = document.getElementById('revelation');
+            const rect = sec.getBoundingClientRect();
+            // Start effect when top of section hits middle of screen
+            const start = window.innerHeight * 0.8; 
+            const end = window.innerHeight * 0.2;
+            const progress = Math.max(0, Math.min(1, (start - rect.top) / (rect.height)));
+            
+            const wordsToHighlight = Math.floor(progress * wordSpans.length);
+            
+            wordSpans.forEach((span, index) => {
+                if(index < wordsToHighlight) {
+                    span.classList.add('highlight');
+                } else {
+                    span.classList.remove('highlight');
                 }
             });
-        }, { threshold: 0.2 });
+        });
 
-        reveals.forEach(ref => observer.observe(ref));
-
-
-        /* --- 3. 3D TILT EFFECT (Section 2 Cards) --- */
-        const tilts = document.querySelectorAll('.tilt');
-        tilts.forEach(tilt => {
-            tilt.addEventListener('mousemove', e => {
-                const rect = tilt.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const xPercent = (x / rect.width - 0.5) * 20; // max 20deg
-                const yPercent = (y / rect.height - 0.5) * -20; // max 20deg
-                tilt.style.transform = `rotateX(${yPercent}deg) rotateY(${xPercent}deg) scale(1.02)`;
+        // --- 5. 3D TILT CARDS ---
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+                const xRot = ((y / rect.height) - 0.5) * -20;
+                const yRot = ((x / rect.width) - 0.5) * 20;
+                card.style.transform = `rotateX(${xRot}deg) rotateY(${yRot}deg) scale(1.05)`;
             });
-            tilt.addEventListener('mouseleave', () => {
-                tilt.style.transform = `rotateX(10deg) rotateY(-10deg) scale(1)`;
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
             });
         });
 
-
-        /* --- 4. MARQUEE CLONE FOR SEAMLESS LOOP (Section 3) --- */
-        const marquees = document.querySelectorAll('#void h3');
-        marquees.forEach(marquee => {
-            const clone = marquee.cloneNode(true);
-            marquee.parentNode.appendChild(clone);
+        // --- 6. MAGNETIC TEXT EFFECT ---
+        const magneticWrap = document.querySelector('.magnetic-wrap');
+        const magneticText = document.querySelector('.magnetic-text');
+        magneticWrap.addEventListener('mousemove', (e) => {
+            const rect = magneticWrap.getBoundingClientRect();
+            const x = (e.clientX - rect.left) - (rect.width / 2);
+            const y = (e.clientY - rect.top) - (rect.height / 2);
+            // Pull text towards mouse
+            magneticText.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+        });
+        magneticWrap.addEventListener('mouseleave', () => {
+            magneticText.style.transform = `translate(0px, 0px)`;
         });
 
+        // --- 7. INFINITE MARQUEE CLONE ---
+        document.querySelectorAll('.marquee-track').forEach(track => {
+            const clone = track.querySelector('h2').cloneNode(true);
+            track.appendChild(clone);
+        });
 
-        /* --- 5. PARTICLE CANVAS (Section 5) --- */
-        const canvas = document.getElementById('particle-canvas');
+        // --- 8. WEBGL/CANVAS PARTICLES FOR FINALE ---
+        const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
-        let particles = [];
+        let pArray = [];
 
-        function resizeCanvas() {
-            canvas.width = canvas.parentNode.offsetWidth;
-            canvas.height = canvas.parentNode.offsetHeight;
+        function resize() {
+            canvas.width = document.getElementById('finale').offsetWidth;
+            canvas.height = document.getElementById('finale').offsetHeight;
         }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        window.addEventListener('resize', resize);
+        resize();
 
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.color = Math.random() > 0.5 ? '#ff3f81' : '#00e676';
+                this.size = Math.random() * 2.5;
+                this.speedY = (Math.random() * -1) - 0.5; // Drift upwards
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random();
             }
             update() {
-                this.x += this.speedX;
                 this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
+                this.x += this.speedX;
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
             }
             draw() {
-                ctx.fillStyle = this.color;
+                ctx.fillStyle = `rgba(255, 42, 95, ${this.opacity})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < 100; i++) {
-                particles.push(new Particle());
-            }
-        }
-        initParticles();
+        for(let i = 0; i < 150; i++) pArray.push(new Particle());
 
-        function animateParticles() {
+        function animateCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateParticles);
+            pArray.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateCanvas);
         }
-        animateParticles();
+        animateCanvas();
 
     </script>
 </body>
